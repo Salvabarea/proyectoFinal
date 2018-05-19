@@ -6,6 +6,43 @@ buscador = 'http://superheroapi.com/api/2045605122134217/search/'
 continuar = False
 heroeID = ""
 
+def pelea (heroeID):
+	heroe = requests.get(base + heroeID)
+	if heroe.status_code == 200:
+		esquemaHeroe = heroe.json()
+		inte = int(esquemaHeroe['powerstats']['intelligence'])
+		if inte >= 80:
+			inte = inte * 0.2
+		else:
+			inte = inte
+		fuer = int(esquemaHeroe['powerstats']['strength'])
+		if fuer >= 50:
+			fuer = fuer * 0.25
+		else:
+			fuer = fuer
+		velo = int(esquemaHeroe['powerstats']['speed'])
+		if velo >= 40:
+			velo = velo * 0.15
+		else:
+			velo = velo
+		dura = int(esquemaHeroe['powerstats']['durability'])
+		if dura >= 50:
+			dura = dura * 0.50
+		else:
+			dura = dura
+		pode = int(esquemaHeroe['powerstats']['power'])
+		if pode >= 105:
+			pode = pode * 0.45
+		else:
+			pode = pode
+		comb = int(esquemaHeroe['powerstats']['combat'])
+		if comb >= 100:
+			comb = comb * 0.35
+		else:
+			comb = comb
+		poderTotal = inte+fuer+velo+dura+pode+comb
+	return poderTotal
+
 def menu (heroeID):
 	print ("Vas a buscar un superhéroes, por favor, indica un nombre ")
 	heroesBuscar = input ("Nombre del héroe: ")
@@ -18,6 +55,7 @@ def menu (heroeID):
 		print (" ")
 		heroeID = input ("¿En qué resultado quieres entrar? (Indique id): ")
 	return heroeID
+
 def opciones (heroeID):
 	salir = False
 	if heroes.status_code == 200:
@@ -75,6 +113,7 @@ def opciones (heroeID):
 				print (" ")
 			if seleccion == 6:
 				salir = True
+
 while continuar == False:
 	heroeID = menu (heroeID)
 	heroes = requests.get(base + heroeID)
@@ -86,3 +125,26 @@ while continuar == False:
 		continuar = True
 	else:
 		print ("Escribe S o N.")
+
+poderTotal = 0
+heroeID = ""
+
+combate = input ("¿Quieres echar un combate?: ")
+if combate == "S" or combate == "s":
+	print ("Plantel:")
+	print ("Iron man - ID 346")
+	print ("Spiderman - ID 620")
+	print ("Capitán América - ID 149")
+	print ("Batman - ID 70")
+	print ("Superman - ID 644")
+	print ("Joker - ID 370")
+	heroeID = input ("Dime una ID:")
+	poderTotal1 = pelea (heroeID)
+	heroeID = input ("Dime una ID:")
+	poderTotal2 = pelea (heroeID)
+	if poderTotal1 > poderTotal2:
+		print ("El primer jugador gana.")
+	else:
+		print ("El segundo jugador gana.")
+else:
+	print ("Adiós")
