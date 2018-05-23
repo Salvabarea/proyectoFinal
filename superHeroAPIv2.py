@@ -1,4 +1,5 @@
-import hashlib
+from colorama import Fore, Back, Style, init
+init(autoreset=True)
 import requests
 import json
 base = 'http://superheroapi.com/api/2045605122134217/'
@@ -44,16 +45,18 @@ def pelea (heroeID):
 	return poderTotal
 
 def menu (heroeID):
-	print ("Vas a buscar un superhéroes, por favor, indica un nombre ")
+	print (Fore.GREEN + Style.BRIGHT + "Vas a buscar un superhéroes, por favor, indica un nombre:")
 	heroesBuscar = input ("Nombre del héroe: ")
+	print(Style.RESET_ALL)
 	heroes = requests.get(buscador + heroesBuscar)
 	if heroes.status_code == 200:
 		esquema = heroes.json()
-		print ("Resultados: ")
-		print ("El id de:",esquema['results'][0]['name'],"es:",esquema['results'][0]['id'])
-		print ("El id de:",esquema['results'][1]['name'],"es:",esquema['results'][1]['id'])
+		print (Style.BRIGHT + "Resultados:")
+		print ("El id de",Back.RED +esquema['results'][0]['name'],"es:",Back.RED +esquema['results'][0]['id'])
+		#print ("El id de:",esquema['results'][1]['name'],"es:",esquema['results'][1]['id'])
 		print (" ")
 		heroeID = input ("¿En qué resultado quieres entrar? (Indique id): ")
+		print (" ")
 	return heroeID
 
 def opciones (heroeID):
@@ -61,55 +64,55 @@ def opciones (heroeID):
 	if heroes.status_code == 200:
 		esquemaAtrib = heroes.json()
 		while salir == False:
-			print ("Estás en el menú de la id:",heroeID)
-			print ("1. Resumen de habilidades.")
-			print ("2. Biografía.")
-			print ("3. Apariencia")
-			print ("4. Comics.")
-			print ("5. Conexiones")
-			print ("6. Salir")
-			seleccion = int(input ("¿Qué quieres hacer?:"))
+			print (Style.BRIGHT + "Estás en el menú de la id:",Back.RED +heroeID)
+			print (Fore.YELLOW + "1. Resumen de habilidades.")
+			print (Fore.YELLOW + "2. Biografía.")
+			print (Fore.YELLOW + "3. Apariencia")
+			print (Fore.YELLOW + "4. Comics.")
+			print (Fore.YELLOW + "5. Conexiones")
+			print (Fore.WHITE + "6. Salir")
+			seleccion = int(input ("¿Qué quieres hacer?: "))
 			print (" ")
 			if seleccion == 1:
-				print ("Resumen de habilidades:")
-				print ("Poder:",esquemaAtrib['powerstats']['power'])
-				print ("Poder de combate:",esquemaAtrib['powerstats']['combat'])
-				print ("Durabilidad:",esquemaAtrib['powerstats']['power'])
-				print ("Inteligencia:",esquemaAtrib['powerstats']['power'])
-				print ("Fuerza:",esquemaAtrib['powerstats']['power'])
-				print ("Velocidad:",esquemaAtrib['powerstats']['power'])
+				print (Style.BRIGHT + "Resumen de habilidades:")
+				print (Style.DIM + Fore.RED + "Poder:",esquemaAtrib['powerstats']['power'])
+				print (Style.DIM + Fore.RED + "Poder de combate:",esquemaAtrib['powerstats']['combat'])
+				print (Style.DIM + Fore.RED + "Durabilidad:",esquemaAtrib['powerstats']['power'])
+				print (Style.DIM + Fore.RED + "Inteligencia:",esquemaAtrib['powerstats']['power'])
+				print (Style.DIM + Fore.RED + "Fuerza:",esquemaAtrib['powerstats']['power'])
+				print (Style.DIM + Fore.RED + "Velocidad:",esquemaAtrib['powerstats']['power'])
 				print (" ")
 			if seleccion == 2:
-				print ("Biografía:")
-				print ("Nombre:",esquemaAtrib['biography']['full-name'])
-				print ("Nombre de superheroe:",esquemaAtrib['name'])
-				print ("Lugar de nacimiento:",esquemaAtrib['biography']['place-of-birth'])
-				print ("Alter egos:",esquemaAtrib['biography']['alter-egos'])
-				print ("Alias:")
+				print (Style.BRIGHT + "Biografía:")
+				print (Style.DIM + Fore.RED + "Nombre:",esquemaAtrib['biography']['full-name'])
+				print (Style.DIM + Fore.RED + "Nombre de superheroe:",esquemaAtrib['name'])
+				print (Style.DIM + Fore.RED + "Lugar de nacimiento:",esquemaAtrib['biography']['place-of-birth'])
+				print (Style.DIM + Fore.RED + "Alter egos:",esquemaAtrib['biography']['alter-egos'])
+				print (Style.DIM + Fore.RED + "Alias:")
 				for x in esquemaAtrib['biography']['aliases']:
 					print (x)
-				print ("Alineación:",esquemaAtrib['biography']['alignment'])
-				print ("Base:",esquemaAtrib['work']['base'])
+				print (Style.DIM + Fore.RED + "Alineación:",esquemaAtrib['biography']['alignment'])
+				print (Style.DIM + Fore.RED + "Base:",esquemaAtrib['work']['base'])
 				print (" ")
 			if seleccion == 3:
-				print ("Apariencia:")
-				print ("Raza:",esquemaAtrib['appearance']['race'])
-				print ("Género:",esquemaAtrib['appearance']['gender'])
-				print ("Color de ojos:",esquemaAtrib['appearance']['eye-color'])
-				print ("Color del pelo:",esquemaAtrib['appearance']['hair-color'])
-				print ("Peso:",esquemaAtrib['appearance']['weight'][1])
-				print ("Altura:",esquemaAtrib['appearance']['height'][1])
+				print (Style.BRIGHT + "Apariencia:")
+				print (Style.DIM + Fore.RED + "Raza:",esquemaAtrib['appearance']['race'])
+				print (Style.DIM + Fore.RED + "Género:",esquemaAtrib['appearance']['gender'])
+				print (Style.DIM + Fore.RED + "Color de ojos:",esquemaAtrib['appearance']['eye-color'])
+				print (Style.DIM + Fore.RED + "Color del pelo:",esquemaAtrib['appearance']['hair-color'])
+				print (Style.DIM + Fore.RED + "Peso:",esquemaAtrib['appearance']['weight'][1])
+				print (Style.DIM + Fore.RED + "Altura:",esquemaAtrib['appearance']['height'][1])
 				print (" ")
 			if seleccion == 4:
-				print ("Comics:")
-				print ("Primera aparición:",esquemaAtrib['biography']['first-appearance'])
-				print ("Editorial:",esquemaAtrib['biography']['publisher'])
-				print ("Imágen",esquemaAtrib['image']['url'])
+				print (Style.BRIGHT + "Comics:")
+				print (Style.DIM + Fore.RED + "Primera aparición:",esquemaAtrib['biography']['first-appearance'])
+				print (Style.DIM + Fore.RED + "Editorial:",esquemaAtrib['biography']['publisher'])
+				print (Style.DIM + Fore.RED + "Imágen",esquemaAtrib['image']['url'])
 				print (" ")
 			if seleccion == 5:
-				print ("Conexiones:")
-				print ("Familia:",esquemaAtrib['connections']['relatives'])
-				print ("Grupos:",esquemaAtrib['connections']['group-affiliation'])
+				print (Style.BRIGHT + "Conexiones:")
+				print (Style.DIM + Fore.RED + "Familia:",esquemaAtrib['connections']['relatives'])
+				print (Style.DIM + Fore.RED + "Grupos:",esquemaAtrib['connections']['group-affiliation'])
 				print (" ")
 			if seleccion == 6:
 				salir = True
@@ -129,22 +132,26 @@ while continuar == False:
 poderTotal = 0
 heroeID = ""
 
-combate = input ("¿Quieres echar un combate?: ")
+combate = input (Style.BRIGHT + "¿Quieres echar un combate?: ")
+print (" ")
 if combate == "S" or combate == "s":
-	print ("Plantel:")
-	print ("Iron man - ID 346")
-	print ("Spiderman - ID 620")
-	print ("Capitán América - ID 149")
-	print ("Batman - ID 70")
-	print ("Superman - ID 644")
-	print ("Joker - ID 370")
-	heroeID = input ("Dime una ID:")
+	print (Style.BRIGHT + Fore.GREEN + "Plantel:")
+	print ("□ Iron man - ID 346")
+	print ("□ Spiderman - ID 620")
+	print ("□ Capitán América - ID 149")
+	print ("□ Batman - ID 70")
+	print ("□ Superman - ID 644")
+	print ("□ Joker - ID 370")
+	print (" ")
+	heroeID = input ("Dime una ID: ")
 	poderTotal1 = pelea (heroeID)
-	heroeID = input ("Dime una ID:")
+	print (" ")
+	heroeID = input ("Dime una ID: ")
 	poderTotal2 = pelea (heroeID)
+	print (" ")
 	if poderTotal1 > poderTotal2:
-		print ("El primer jugador gana.")
+		print (Back.YELLOW + "El primer jugador gana.")
 	else:
-		print ("El segundo jugador gana.")
+		print (Back.YELLOW + "El segundo jugador gana.")
 else:
 	print ("Adiós")
